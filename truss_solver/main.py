@@ -16,7 +16,6 @@ from matplotlib import cm
 import matplotlib_inline.backend_inline
 matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
 
-
 working_dir = r""
 file = "/example/input_data.xlsx"
 
@@ -180,14 +179,13 @@ for i in range(num_ele):
     ele_force = np.append([ele_force], [ele_frc])
 
 cmap = cm.get_cmap('bwr')
-values = ele_stress
-norm = mcolors.TwoSlopeNorm(vmin=np.min(values),vcenter=0,vmax=np.max(values))
+norm = mcolors.TwoSlopeNorm(vmin=np.min(ele_stress),vcenter=0,vmax=np.max(ele_stress))
 
 if int(plotting_flags.loc['Stresses']) == 1:
   plt.figure()
   for i in range(num_ele):
     plt.plot([ele_coor2[i*4+0],ele_coor2[i*4+1]],[ele_coor2[i*4+2],ele_coor2[i*4+3]], '--' 'k', alpha=0.7)
-    plt.plot([ele_coor2[i*4+0],ele_coor2[i*4+1]],[ele_coor2[i*4+2],ele_coor2[i*4+3]], '-', color=cmap(norm(values[i])),alpha=0.9)
+    plt.plot([ele_coor2[i*4+0],ele_coor2[i*4+1]],[ele_coor2[i*4+2],ele_coor2[i*4+3]], '-', color=cmap(norm(ele_stress[i])),alpha=0.9)
   plt.colorbar(cm.ScalarMappable(cmap=cmap, norm=norm))
   plt.title('Stresses in Truss Members')
   plt.grid()
