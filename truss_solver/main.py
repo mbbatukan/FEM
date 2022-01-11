@@ -194,8 +194,6 @@ if int(plotting_flags.loc['Stresses']) == 1:
   plt.axis('equal')
   plt.savefig(working_dir + "/RESULTS/Stesses.svg", dpi=1200, format="svg")
 
-
-
 with open(working_dir + "/RESULTS/node_displacements.txt", 'w') as f:
   f.write('-'*80)
   f.write('\nNode # and Displacements (X,Y): (Unit = mm)\n')
