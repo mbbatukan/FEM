@@ -127,9 +127,9 @@ for i in range(num_ele):
 if int(plotting_flags.loc['Node numbers']) == 1:
   plt.figure()
   for i in range(num_ele):
-    plt.plot([ele_coor[i*4+0],ele_coor[i*4+1]],[ele_coor[i*4+2],ele_coor[i*4+3]], 'k' '-o', markersize=1, linewidth=0.2)
+    plt.plot([ele_coor[i*4+0],ele_coor[i*4+1]],[ele_coor[i*4+2],ele_coor[i*4+3]], color='red', marker='o', markersize=1, linewidth=0.5)
   plt.title('Truss - Node Numbers')
-  plt.grid()
+  plt.grid(color='black', linestyle='--', linewidth=0.1)
   plt.xlabel('Length (m)')
   plt.ylabel('Height (m)')
   plt.axis('equal')
@@ -140,9 +140,9 @@ if int(plotting_flags.loc['Node numbers']) == 1:
 if int(plotting_flags.loc['Element numbers']) == 1:
   plt.figure()
   for i in range(num_ele):
-    plt.plot([ele_coor[i*4+0],ele_coor[i*4+1]],[ele_coor[i*4+2],ele_coor[i*4+3]], 'k' '-o', markersize=1, linewidth=0.2)
+    plt.plot([ele_coor[i*4+0],ele_coor[i*4+1]],[ele_coor[i*4+2],ele_coor[i*4+3]], color='red', marker='o', markersize=1, linewidth=0.5)
   plt.title('Truss - Element Numbers')
-  plt.grid()
+  plt.grid(color='black', linestyle='--', linewidth=0.1)
   plt.xlabel('Length (m)')
   plt.ylabel('Height (m)')
   plt.axis('equal')  
@@ -156,7 +156,7 @@ if int(plotting_flags.loc['Deflected shape']) == 1:
     plt.plot([ele_coor[i*4+0],ele_coor[i*4+1]],[ele_coor[i*4+2],ele_coor[i*4+3]], 'k' '--')
     plt.plot([ele_coor2[i*4+0],ele_coor2[i*4+1]],[ele_coor2[i*4+2],ele_coor2[i*4+3]], 'r' '-')
   plt.title('Deflected Shape of Truss (x' + str(mag_factor) +')')
-  plt.grid()
+  plt.grid(color='black', linestyle='--', linewidth=0.1)
   plt.xlabel('Length (m)')
   plt.ylabel('Height (m)')
   plt.axis('equal')
@@ -192,7 +192,7 @@ if int(plotting_flags.loc['Stresses']) == 1:
     plt.plot([ele_coor2[i*4+0],ele_coor2[i*4+1]],[ele_coor2[i*4+2],ele_coor2[i*4+3]], '-', color=cmap(norm(ele_stress[i])),alpha=0.9)
   plt.colorbar(cm.ScalarMappable(cmap=cmap, norm=norm))
   plt.title('Stresses in Truss Members (Unit = MPa)')
-  plt.grid()
+  plt.grid(color='black', linestyle='--', linewidth=0.1)
   plt.xlabel('Length (m)')
   plt.ylabel('Height (m)')
   plt.axis('equal')
