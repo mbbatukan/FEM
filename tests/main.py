@@ -130,6 +130,8 @@ if int(plotting_flags.loc['Node numbers']) == 1:
     plt.plot([ele_coor[i*4+0],ele_coor[i*4+1]],[ele_coor[i*4+2],ele_coor[i*4+3]], 'k' '-o', markersize=1, linewidth=0.2)
   plt.title('Truss - Node Numbers')
   plt.grid()
+  plt.xlabel('Length (m)')
+  plt.ylabel('Height (m)')
   plt.axis('equal')
   for i in range(num_nod):
     plt.annotate(i+1, np.array([[nod_coor[i,0]], [nod_coor[i,1]]]), ha='right', va='top', size=6)
@@ -141,6 +143,8 @@ if int(plotting_flags.loc['Element numbers']) == 1:
     plt.plot([ele_coor[i*4+0],ele_coor[i*4+1]],[ele_coor[i*4+2],ele_coor[i*4+3]], 'k' '-o', markersize=1, linewidth=0.2)
   plt.title('Truss - Element Numbers')
   plt.grid()
+  plt.xlabel('Length (m)')
+  plt.ylabel('Height (m)')
   plt.axis('equal')  
   for i in range(num_ele):
     plt.text(0.5 * (ele_coor[i*4+0] + ele_coor[i*4+1]), 0.5 * (ele_coor[i*4+2] + ele_coor[i*4+3]), i+1, ha='center', va='bottom', size=4)
@@ -153,6 +157,8 @@ if int(plotting_flags.loc['Deflected shape']) == 1:
     plt.plot([ele_coor2[i*4+0],ele_coor2[i*4+1]],[ele_coor2[i*4+2],ele_coor2[i*4+3]], 'r' '-')
   plt.title('Deflected Shape of Truss (x' + str(mag_factor) +')')
   plt.grid()
+  plt.xlabel('Length (m)')
+  plt.ylabel('Height (m)')
   plt.axis('equal')
   plt.savefig(working_dir + "/example/RESULTS/Deflected_shape.svg", dpi=1200, format="svg")
 
@@ -185,8 +191,10 @@ if int(plotting_flags.loc['Stresses']) == 1:
     plt.plot([ele_coor2[i*4+0],ele_coor2[i*4+1]],[ele_coor2[i*4+2],ele_coor2[i*4+3]], '--' 'k', alpha=0.7)
     plt.plot([ele_coor2[i*4+0],ele_coor2[i*4+1]],[ele_coor2[i*4+2],ele_coor2[i*4+3]], '-', color=cmap(norm(ele_stress[i])),alpha=0.9)
   plt.colorbar(cm.ScalarMappable(cmap=cmap, norm=norm))
-  plt.title('Stresses in Truss Members')
+  plt.title('Stresses in Truss Members (Unit = MPa)')
   plt.grid()
+  plt.xlabel('Length (m)')
+  plt.ylabel('Height (m)')
   plt.axis('equal')
   plt.savefig(working_dir + "/example/RESULTS/Stesses.svg", dpi=1200, format="svg")
 
