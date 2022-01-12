@@ -7,7 +7,7 @@ Revised on Tue Jan 11 13:51:10 2022
 @author: Mehmet B Batukan
 """
 import os, sys
-sys.path.insert(1, '../src/truss_solver')
+sys.path.insert(1, '../src')
 import FEM
 import numpy as np
 import pandas as pd
@@ -114,8 +114,8 @@ U_act = np.reshape(nod_coor,(2*len(nod_coor),1),order='C')
 U_def = U_fac + U_act
 U_def2 = np.reshape(U_def,(len(nod_coor),2),order='C')
 
-if not os.path.exists(working_dir + "/RESULTS"):
-    os.makedirs(working_dir + "/RESULTS")
+if not os.path.exists(working_dir + "/example/RESULTS"):
+    os.makedirs(working_dir + "/example/RESULTS")
 
 ele_coor2 = np.array([])
 for i in range(num_ele):
@@ -133,7 +133,7 @@ if int(plotting_flags.loc['Node numbers']) == 1:
   plt.axis('equal')
   for i in range(num_nod):
     plt.annotate(i+1, np.array([[nod_coor[i,0]], [nod_coor[i,1]]]), ha='right', va='top', size=6)
-  plt.savefig(working_dir + "/RESULTS/Node_numbers.svg", dpi=1200, format="svg")
+  plt.savefig(working_dir + "/example/RESULTS/Node_numbers.svg", dpi=1200, format="svg")
   
 if int(plotting_flags.loc['Element numbers']) == 1:
   plt.figure()
@@ -144,7 +144,7 @@ if int(plotting_flags.loc['Element numbers']) == 1:
   plt.axis('equal')  
   for i in range(num_ele):
     plt.text(0.5 * (ele_coor[i*4+0] + ele_coor[i*4+1]), 0.5 * (ele_coor[i*4+2] + ele_coor[i*4+3]), i+1, ha='center', va='bottom', size=4)
-  plt.savefig(working_dir + "/RESULTS/Element_numbers.svg", dpi=1200, format="svg")
+  plt.savefig(working_dir + "/example/RESULTS/Element_numbers.svg", dpi=1200, format="svg")
 
 if int(plotting_flags.loc['Deflected shape']) == 1:
   plt.figure()
@@ -154,7 +154,7 @@ if int(plotting_flags.loc['Deflected shape']) == 1:
   plt.title('Deflected Shape of Truss (x' + str(mag_factor) +')')
   plt.grid()
   plt.axis('equal')
-  plt.savefig(working_dir + "/RESULTS/Deflected_shape.svg", dpi=1200, format="svg")
+  plt.savefig(working_dir + "/example/RESULTS/Deflected_shape.svg", dpi=1200, format="svg")
 
 U_total_rs = np.reshape(U_total,(num_nod,2),order='C')
 F_total_rs = np.reshape(Force_total,(num_nod,2),order='C')
@@ -188,9 +188,9 @@ if int(plotting_flags.loc['Stresses']) == 1:
   plt.title('Stresses in Truss Members')
   plt.grid()
   plt.axis('equal')
-  plt.savefig(working_dir + "/RESULTS/Stesses.svg", dpi=1200, format="svg")
+  plt.savefig(working_dir + "/example/RESULTS/Stesses.svg", dpi=1200, format="svg")
 
-with open(working_dir + "/RESULTS/node_displacements.txt", 'w') as f:
+with open(working_dir + "/example/RESULTS/node_displacements.txt", 'w') as f:
   f.write('-'*80)
   f.write('\nNode # and Displacements (X,Y): (Unit = mm)\n')
   f.write('-'*80)
@@ -199,7 +199,7 @@ with open(working_dir + "/RESULTS/node_displacements.txt", 'w') as f:
   f.write('\n')
   f.write('-'*80)
 
-with open(working_dir + "/RESULTS/nodal_forces.txt", 'w') as f:
+with open(working_dir + "/example/RESULTS/nodal_forces.txt", 'w') as f:
   f.write('-'*80)
   f.write('\nNode # and Forces (X,Y): (Unit = kN)\n')
   f.write('-'*80)
