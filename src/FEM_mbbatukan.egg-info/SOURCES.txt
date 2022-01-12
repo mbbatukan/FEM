@@ -1,0 +1,10 @@
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+src/FEM_mbbatukan.egg-info/PKG-INFO
+src/FEM_mbbatukan.egg-info/SOURCES.txt
+src/FEM_mbbatukan.egg-info/dependency_links.txt
+src/FEM_mbbatukan.egg-info/top_level.txt
+src/truss_solver/__init__.py
+src/truss_solver/truss_solver.py

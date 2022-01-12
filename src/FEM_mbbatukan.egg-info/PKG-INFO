@@ -1,0 +1,25 @@
+Metadata-Version: 2.1
+Name: FEM-mbbatukan
+Version: 0.0.1
+Summary: Finite Element Method Test Package
+Home-page: https://github.com/mbbatukan/FEM
+Author: Mehmet Baris Batukan
+Author-email: N/A@email.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/mbbatukan/FEM/issues
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# FEM
+
+This reposity contains finite element method (FEM) files wrtiten in Python. 
+ 
+## 1. Truss solver
+Mainly inspired by the following textbook by Kattan, P. I. (2010). MATLAB guide to finite elements: an interactive approach. Springer Science & Business Media.
+
+

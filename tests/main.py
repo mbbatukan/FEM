@@ -6,8 +6,9 @@ Revised on Tue Jan 11 13:51:10 2022
 
 @author: Mehmet B Batukan
 """
-import os
-import truss_solver as truss
+import os, sys
+sys.path.insert(1, '../src/truss_solver')
+import FEM
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -16,7 +17,7 @@ from matplotlib import cm
 import matplotlib_inline.backend_inline
 matplotlib_inline.backend_inline.set_matplotlib_formats('svg')
 
-working_dir = r""
+working_dir = os.path.dirname(os.path.realpath(__file__))
 file = "/example/input_data.xlsx"
 
 df_input_data = pd.read_excel(working_dir + file, header=1)
@@ -61,17 +62,17 @@ L = np.zeros([num_ele,1])
 theta = np.zeros([num_ele,1])
 
 for i in range(num_ele):
-  L[i], theta[i] = truss.PlaneTrussElementLength(ele_coor[4*i+0],ele_coor[4*i+1],ele_coor[4*i+2],ele_coor[4*i+3])
+  L[i], theta[i] = FEM.TrussSolver.PlaneElementLength(ele_coor[4*i+0],ele_coor[4*i+1],ele_coor[4*i+2],ele_coor[4*i+3])
 
 ele_stif = np.zeros([num_ele*4,num_ele*4])
 stif_array = np.array([])
 
 for i in range(num_ele):
-  ele_stif = truss.PlaneTrussElementStiffness(E, A[i], L[i], theta[i])
+  ele_stif = FEM.TrussSolver.PlaneElementStiffness(E, A[i], L[i], theta[i])
   stif_array = np.append([stif_array], [ele_stif])
   
 for i in range(num_ele):
-  K = truss.PlaneTrussAssemble(K, np.array([stif_array[i*16+0:i*16+4],stif_array[i*16+4:i*16+8],stif_array[i*16+8:i*16+12],stif_array[i*16+12:i*16+16]]), ele_nod[i,0], ele_nod[i,1])
+  K = FEM.TrussSolver.PlaneAssemble(K, np.array([stif_array[i*16+0:i*16+4],stif_array[i*16+4:i*16+8],stif_array[i*16+8:i*16+12],stif_array[i*16+12:i*16+16]]), ele_nod[i,0], ele_nod[i,1])
 
 idx = list(range(num_nod * 2))
 
@@ -134,7 +135,6 @@ if int(plotting_flags.loc['Node numbers']) == 1:
     plt.annotate(i+1, np.array([[nod_coor[i,0]], [nod_coor[i,1]]]), ha='right', va='top', size=6)
   plt.savefig(working_dir + "/RESULTS/Node_numbers.svg", dpi=1200, format="svg")
   
-
 if int(plotting_flags.loc['Element numbers']) == 1:
   plt.figure()
   for i in range(num_ele):
@@ -145,7 +145,6 @@ if int(plotting_flags.loc['Element numbers']) == 1:
   for i in range(num_ele):
     plt.text(0.5 * (ele_coor[i*4+0] + ele_coor[i*4+1]), 0.5 * (ele_coor[i*4+2] + ele_coor[i*4+3]), i+1, ha='center', va='bottom', size=4)
   plt.savefig(working_dir + "/RESULTS/Element_numbers.svg", dpi=1200, format="svg")
-  
 
 if int(plotting_flags.loc['Deflected shape']) == 1:
   plt.figure()
@@ -156,7 +155,6 @@ if int(plotting_flags.loc['Deflected shape']) == 1:
   plt.grid()
   plt.axis('equal')
   plt.savefig(working_dir + "/RESULTS/Deflected_shape.svg", dpi=1200, format="svg")
-
 
 U_total_rs = np.reshape(U_total,(num_nod,2),order='C')
 F_total_rs = np.reshape(Force_total,(num_nod,2),order='C')
@@ -170,12 +168,12 @@ for i in range(num_ele):
  
 ele_stress = np.array([])
 for i in range(num_ele):
-    ele_str = truss.PlaneTrussElementStress(E / 1000, L[i], theta[i], np.array([ele_disp[i*4+0],ele_disp[i*4+1],ele_disp[i*4+2],ele_disp[i*4+3]]))
+    ele_str = FEM.TrussSolver.PlaneElementStress(E / 1000, L[i], theta[i], np.array([ele_disp[i*4+0],ele_disp[i*4+1],ele_disp[i*4+2],ele_disp[i*4+3]]))
     ele_stress = np.append([ele_stress], [ele_str])
 
 ele_force = np.array([])
 for i in range(num_ele):
-    ele_frc = truss.PlaneTrussElementForce(E, A[i], L[i], theta[i], np.array([ele_disp[i*4+0],ele_disp[i*4+1],ele_disp[i*4+2],ele_disp[i*4+3]]))
+    ele_frc = FEM.TrussSolver.PlaneElementForce(E, A[i], L[i], theta[i], np.array([ele_disp[i*4+0],ele_disp[i*4+1],ele_disp[i*4+2],ele_disp[i*4+3]]))
     ele_force = np.append([ele_force], [ele_frc])
 
 cmap = cm.get_cmap('bwr')
@@ -209,4 +207,3 @@ with open(working_dir + "/RESULTS/nodal_forces.txt", 'w') as f:
   f.write('\n'.join("{} {}".format(x, y) for x, y in zip((list(range(1, num_nod+1))), F_total_rs)))
   f.write('\n')
   f.write('-'*80)
-
