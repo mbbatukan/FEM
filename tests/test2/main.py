@@ -7,7 +7,7 @@ Revised on Tue Jan 11 13:51:10 2022
 @author: Mehmet B Batukan
 """
 import os, sys
-sys.path.insert(1, '../src')
+sys.path.insert(1, '../../src')
 import FEM
 import numpy as np
 import pandas as pd
